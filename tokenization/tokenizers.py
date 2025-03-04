@@ -22,7 +22,11 @@ class SimpleTokenizerV1:
             item.strip() for item in preprocessed if item.strip()
         ]
 
-        ids = [self.str_to_int[s] for s in preprocessed]
+        try:
+            ids = [self.str_to_int[s] for s in preprocessed]
+        except KeyError as e:
+            raise KeyError(f"The word {e} is not tokenized.")
+        
         return ids
         
     def decode(self, ids):
